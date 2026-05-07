@@ -6,13 +6,26 @@
   "bin": {
     "malaysian-tax-mcp": "./dist/index.js"
   },
+  "files": [
+    "dist",
+    "content"
+  ],
   "scripts": {
     "build": "tsc",
     "dev": "tsx watch src/index.ts",
     "start": "node dist/index.js",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "prepublishOnly": "npm run build && node scripts/copy-content.js"
   },
-  "keywords": ["mcp", "malaysian-tax", "tax-computation", "lhdn", "ita-1967"],
+  "keywords": [
+    "mcp",
+    "malaysian-tax",
+    "tax-computation",
+    "lhdn",
+    "ita-1967",
+    "rpgta-1976",
+    "stamp-act-1949"
+  ],
   "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.0",

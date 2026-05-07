@@ -1,7 +1,11 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { loadReference, loadData, loadSkill, listReferences, listDataFiles } from "./skill-loader.js";
+import { loadReference, loadData, loadSkill } from "../content/loader.js";
+import { logger } from "../logger.js";
 
-export function registerResources(server: McpServer): void {
+export function registerResources(
+  server: McpServer,
+  fileLists: { references: string[]; dataFiles: string[] }
+): void {
   server.resource(
     "skill://malaysian-tax/skill",
     "malaysian-tax://skill.md",
@@ -14,14 +18,13 @@ export function registerResources(server: McpServer): void {
         {
           uri: "malaysian-tax://skill.md",
           mimeType: "text/markdown",
-          text: loadSkill(),
+          text: await loadSkill(),
         },
       ],
     })
   );
 
-  const references = listReferences();
-  for (const ref of references) {
+  for (const ref of fileLists.references) {
     const name = ref.replace(".md", "");
     server.resource(
       `skill://malaysian-tax/reference/${name}`,
@@ -35,15 +38,14 @@ export function registerResources(server: McpServer): void {
           {
             uri: `malaysian-tax://reference/${ref}`,
             mimeType: "text/markdown",
-            text: loadReference(ref),
+            text: await loadReference(ref),
           },
         ],
       })
     );
   }
 
-  const dataFiles = listDataFiles();
-  for (const file of dataFiles) {
+  for (const file of fileLists.dataFiles) {
     const name = file.replace(".json", "");
     server.resource(
       `skill://malaysian-tax/data/${name}`,
@@ -57,10 +59,15 @@ export function registerResources(server: McpServer): void {
           {
             uri: `malaysian-tax://data/${file}`,
             mimeType: "application/json",
-            text: JSON.stringify(loadData(file), null, 2),
+            text: JSON.stringify(await loadData(file), null, 2),
           },
         ],
       })
     );
   }
+
+  logger.info("resources_registered", {
+    references: fileLists.references.length,
+    dataFiles: fileLists.dataFiles.length,
+  });
 }

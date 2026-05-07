@@ -1,21 +1,19 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
-import { loadSkill, loadReference, loadData } from "./skill-loader.js";
+import { loadSkill, loadReference, loadData } from "../content/loader.js";
+import { today, daysUntil } from "../tools/date-utils.js";
+import { logger } from "../logger.js";
 
-export function registerPrompts(server: McpServer): void {
+export async function registerPrompts(server: McpServer): Promise<void> {
   server.prompt(
     "tax-computation",
     "Full Malaysian tax computation workflow — guides through discovery, entity classification, and computation with all preflight gates enforced.",
     {
-      entity_type: z
-        .string()
-        .optional()
-        .describe("Entity type (sdn-bhd, plt, partnership, sole-proprietor, etc.)"),
+      entity_type: z.string().optional().describe("Entity type (sdn-bhd, plt, partnership, sole-proprietor, etc.)"),
       year_of_assessment: z.string().optional().describe("Year of Assessment (e.g. 2025)"),
     },
     async ({ entity_type, year_of_assessment }) => {
-      const skill = loadSkill();
-      const rates = loadData("rates.json");
+      const [skill, rates] = await Promise.all([loadSkill(), loadData("rates.json")]);
 
       return {
         messages: [
@@ -29,9 +27,9 @@ export function registerPrompts(server: McpServer): void {
                 skill,
                 ``,
                 `## Tax Rates`,
-                `\`\`\`json`,
+                "```json",
                 JSON.stringify(rates, null, 2),
-                `\`\`\``,
+                "```",
                 ``,
                 `## Task`,
                 `Perform a full tax computation.`,
@@ -54,8 +52,7 @@ export function registerPrompts(server: McpServer): void {
       computation: z.string().describe("The tax computation to audit"),
     },
     async ({ computation }) => {
-      const auditRef = loadReference("audit.md");
-      const rates = loadData("rates.json");
+      const [auditRef, rates] = await Promise.all([loadReference("audit.md"), loadData("rates.json")]);
 
       return {
         messages: [
@@ -67,17 +64,17 @@ export function registerPrompts(server: McpServer): void {
                 `You are a Malaysian tax audit specialist. Review the following computation using the audit framework below.`,
                 ``,
                 `## Computation to Audit`,
-                `\`\`\``,
+                "```",
                 computation,
-                `\`\`\``,
+                "```",
                 ``,
                 `## Audit Framework`,
                 auditRef,
                 ``,
                 `## Rates for Verification`,
-                `\`\`\`json`,
+                "```json",
                 JSON.stringify(rates, null, 2),
-                `\`\`\``,
+                "```",
                 ``,
                 `Produce the full audit report: health score table, executive summary, detailed findings by severity, systemic issues, and positive findings.`,
               ].join("\n"),
@@ -96,8 +93,7 @@ export function registerPrompts(server: McpServer): void {
       projected_profit: z.string().optional().describe("Projected net profit before tax"),
     },
     async ({ financial_year_end, projected_profit }) => {
-      const yearEndRef = loadReference("year-end.md");
-      const today = new Date().toISOString().split("T")[0];
+      const yearEndRef = await loadReference("year-end.md");
 
       return {
         messages: [
@@ -110,8 +106,8 @@ export function registerPrompts(server: McpServer): void {
                 ``,
                 `## Context`,
                 `- Financial Year End: ${financial_year_end}`,
-                `- Today: ${today}`,
-                `- Days remaining: ${Math.ceil((new Date(financial_year_end).getTime() - new Date(today).getTime()) / 86400000)}`,
+                `- Today: ${today()}`,
+                `- Days remaining: ${daysUntil(financial_year_end)}`,
                 projected_profit ? `- Projected net profit: ${projected_profit}` : "",
                 ``,
                 `## Year-End Planning Reference`,
@@ -131,7 +127,7 @@ export function registerPrompts(server: McpServer): void {
     "New client onboarding from prior agent — verify carry-forwards and identify errors.",
     {},
     async () => {
-      const takeoverRef = loadReference("takeover.md");
+      const takeoverRef = await loadReference("takeover.md");
 
       return {
         messages: [
@@ -161,7 +157,7 @@ export function registerPrompts(server: McpServer): void {
       assessment_details: z.string().describe("LHDN Form JA or query letter content"),
     },
     async ({ assessment_details }) => {
-      const disputeRef = loadReference("dispute.md");
+      const disputeRef = await loadReference("dispute.md");
 
       return {
         messages: [
@@ -173,9 +169,9 @@ export function registerPrompts(server: McpServer): void {
                 `You are a Malaysian tax dispute specialist. Analyse the following LHDN action:`,
                 ``,
                 `## LHDN Correspondence`,
-                `\`\`\``,
+                "```",
                 assessment_details,
-                `\`\`\``,
+                "```",
                 ``,
                 `## Dispute Resolution Framework`,
                 disputeRef,
@@ -188,4 +184,6 @@ export function registerPrompts(server: McpServer): void {
       };
     }
   );
+
+  logger.info("prompts_registered", { count: 5 });
 }
