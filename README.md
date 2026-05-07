@@ -355,4 +355,4 @@ User provides financial data
 
 ## License
 
-MIT
+Apache-2.0

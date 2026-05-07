@@ -12,5 +12,5 @@
     "clean": "rm -rf dist"
   },
   "keywords": ["malaysian-tax", "tax-computation", "ai-skill", "ita-1967", "lhdn"],
-  "license": "MIT"
+  "license": "Apache-2.0"
 }
