@@ -1,6 +1,6 @@
 # Malaysian Tax
 
-The precision your practice demands. 1 skill, 8 commands, and 20 traps that catch practitioners before LHDN does.
+The precision your practice demands. 1 skill, 9 commands, and 20 traps that catch practitioners before LHDN does.
 
 > **Quick start:** Copy `dist/claude-code/.claude/` into your project, or install for any supported AI tool below.
 
@@ -20,7 +20,7 @@ This skill fixes that. It encodes the Income Tax Act 1967, Budget 2026, 76 DTAs,
 
 ### The Skill: malaysian-tax
 
-A complete tax computation system with 14 domain references and structured data:
+A complete tax computation system with 15 domain references and structured data:
 
 ```
 skill/
@@ -39,6 +39,7 @@ skill/
 │   ├── group.md                         Group relief/IHC/controlled transfers
 │   ├── compliance.md                    Edge cases/audit/penalties
 │   ├── audit.md                         Error detection + health scoring
+│   ├── tax-strategy.md                  Optimisation by stage (loss→super-profit)
 │   └── workflow.md                      Practitioner 9-phase workflow
 └── data/                             ← Structured (machine-readable)
     ├── rates.json                       Corporate, individual, cooperative rates
@@ -48,7 +49,7 @@ skill/
     └── command-metadata.json            Sub-command definitions
 ```
 
-### 8 Commands
+### 9 Commands
 
 All accessed through `/malaysian-tax`:
 
@@ -60,6 +61,7 @@ All accessed through `/malaysian-tax`:
 | `/malaysian-tax international` | Cross-border: WHT, FTC, FSI, Labuan, PE determination |
 | `/malaysian-tax group` | Group structure: IHC, relief, controlled transfers, continuity |
 | `/malaysian-tax incentive` | Available incentives, eligibility, tax savings quantified |
+| `/malaysian-tax strategy` | Tax optimisation by company stage — quantified savings, anti-avoidance bounded |
 | `/malaysian-tax cp204` | Underestimation penalty computation |
 | `/malaysian-tax shape` | Discovery interview for complex scenarios |
 
@@ -71,6 +73,7 @@ All accessed through `/malaysian-tax`:
 /malaysian-tax transfer-pricing           # Analyzes related-party transactions
 /malaysian-tax international              # WHT/FTC on cross-border payments
 /malaysian-tax group                      # Reviews group structure
+/malaysian-tax strategy                   # Optimisation strategies by profit stage
 /malaysian-tax incentive                  # Checks what's available
 ```
 

@@ -1,7 +1,7 @@
 ---
 name: malaysian-tax
 description: "Use when the user wants to compute, audit, review, or plan Malaysian tax for any entity type: Sdn Bhd, PLT, Partnership, Sole Proprietor, NGO, or Cooperative. Covers tax computation, transfer pricing, international taxation, group structures, incentives, and compliance review. Not for non-Malaysian jurisdictions or non-tax advisory work."
-argument-hint: "[compute · audit · transfer-pricing · international · group · incentive · cp204 · shape] [target]"
+argument-hint: "[compute · audit · strategy · transfer-pricing · international · group · incentive · cp204 · shape] [target]"
 user-invocable: true
 allowed-tools:
   - Read(*)
@@ -86,6 +86,7 @@ DECISION TREE:
 | `international [transactions]` | Evaluate | WHT, FTC, FSI, PE, Labuan | [reference/international.md](reference/international.md) |
 | `group [structure]` | Evaluate | IHC, group relief, controlled transfers, continuity | [reference/group.md](reference/group.md) |
 | `incentive [entity]` | Advise | Available incentives and eligibility | [reference/incentives.md](reference/incentives.md) |
+| `strategy [entity]` | Advise | Tax optimisation by company stage — quantified, bounded by anti-avoidance | [reference/tax-strategy.md](reference/tax-strategy.md) |
 | `cp204 [actual vs estimate]` | Check | Underestimation penalty computation | [reference/corporate.md](reference/corporate.md) |
 | `shape [scenario]` | Plan | Discovery interview for complex scenarios | (this file) |
 
@@ -96,7 +97,7 @@ DECISION TREE:
 3. **First word doesn't match but financial data is present**: route to `compute`, classify entity first.
 4. **Ambiguous**: ask one clarifying question. Do not guess between `compute` and `audit`.
 
-Commands chain naturally: `compute` auto-runs `audit` at the end. `compute` with related parties triggers `transfer-pricing` check. `compute` with non-resident payments triggers `international` WHT check.
+Commands chain naturally: `compute` auto-runs `audit` at the end. `compute` with related parties triggers `transfer-pricing` check. `compute` with non-resident payments triggers `international` WHT check. `strategy` chains to `compute` when the user wants to implement a recommended strategy.
 
 ---
 
@@ -375,6 +376,29 @@ Revision rules:
   - 6th month: increase OR decrease
   - 9th month: increase ONLY
 ```
+
+---
+
+## COMMAND: strategy
+
+Load [reference/tax-strategy.md](reference/tax-strategy.md).
+
+### Strategy review contract
+
+1. **Classify stage**: From actual financials, determine Loss-Making / Breakeven / Profitable / Super-Profitable.
+2. **Load stage-specific strategies**: Only the relevant stage section (do not dump all 4 stages on every entity).
+3. **For each applicable strategy**: Quantify the tax saving, state the authority, assess risk level, and provide implementation steps.
+4. **Anti-avoidance check**: Every recommendation must state which anti-avoidance provision could apply if poorly implemented.
+5. **Prioritise**: Rank by tax saving (descending), filtered by risk tolerance (legitimate first, then grey area only if client appetite confirmed).
+6. **Summary table**: End with prioritised strategy table showing total addressable savings.
+
+**Discovery additions for strategy:**
+- "What is your risk appetite for tax planning?" (legitimate only / some grey area / aggressive)
+- "Are there planned capital expenditures in the next 12 months?"
+- "Any group restructuring planned?"
+- "Current incentive status (PS/ITA/RA in force)?"
+
+**Chains to:** `compute` (to rerun with optimised treatment), `incentive` (for eligibility deep-dive), `transfer-pricing` (for TP documentation), `group` (for restructuring analysis).
 
 ---
 

@@ -42,6 +42,13 @@
       "references": ["incentives.md"],
       "chains_to": ["compute"]
     },
+    "strategy": {
+      "category": "Advise",
+      "description": "Tax optimisation by company stage — loss, breakeven, profitable, super-profitable",
+      "argument_hint": "[entity details or financial position]",
+      "references": ["tax-strategy.md", "incentives.md", "capital-allowances.md"],
+      "chains_to": ["compute", "incentive", "transfer-pricing", "group"]
+    },
     "cp204": {
       "category": "Check",
       "description": "CP204 underestimation penalty computation",
