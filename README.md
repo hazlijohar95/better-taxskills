@@ -20,7 +20,7 @@ This skill fixes that. It encodes the Income Tax Act 1967, Budget 2026, 76 DTAs,
 
 ### The Skill: malaysian-tax
 
-A complete tax computation system with 23 domain references and structured data:
+A complete tax computation system with 24 domain references and structured data:
 
 ```
 skill/
@@ -245,7 +245,7 @@ cd server && npm install && npm run build
 **Any MCP-compatible client**: Point to the server binary via stdio transport.
 
 The MCP server exposes:
-- **19 tools** for tax computation, audit, strategy, RPGT, stamp duty, and more
+- **18 tools** for tax computation, audit, strategy, RPGT, stamp duty, and more
 - **30 resources** providing read-only access to all domain references and structured data
 - **5 prompts** for common workflows (computation, audit, year-end planning, takeover, dispute)
 
