@@ -501,3 +501,148 @@ These are not guidelines. They are traps that practitioners fall into and LHDN c
 ```
 
 Every computation ends with the audit health score. No exceptions.
+
+---
+
+## What-If Mode (session state)
+
+After any `compute` produces a full computation, the agent enters **what-if mode** for that entity. The computation becomes the **baseline**. The user can now modify assumptions conversationally without re-triggering full preflight or re-presenting the entire computation.
+
+### Activation
+
+What-if mode activates automatically when:
+- A full computation has been produced in this conversation
+- The user asks a scenario question ("what if...", "what happens if...", "can we...", "try moving...", "remove the...", "add back the...")
+
+What-if mode does NOT activate if:
+- No computation exists yet in this conversation
+- The user explicitly requests a fresh computation ("recompute from scratch", "start over")
+- The user changes entity type or YA (requires fresh preflight)
+
+### Baseline state
+
+The baseline is the most recent full computation. It includes:
+- Every line item amount (add-backs, deductions, CA per asset, losses)
+- The derived totals (adjusted income, statutory income, chargeable income, tax payable)
+- Rate determination (SME/standard)
+- Loss memorandum position
+- Audit health score
+
+### What-if interaction pattern
+
+When the user proposes a change:
+
+```
+1. IDENTIFY what changed:
+   - Which line item(s) are affected?
+   - What is the old value and new value?
+   - Does the change cascade? (e.g., removing an add-back changes adjusted income,
+     which changes statutory income, which changes chargeable income, which changes tax)
+
+2. COMPUTE the delta:
+   - Trace the change through the full computation chain
+   - Recalculate ONLY the affected figures
+   - Determine new tax payable
+
+3. PRESENT the delta (not the full computation):
+```
+
+### Delta output format
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ WHAT-IF: [description of change]                                │
+├──────────────────────────┬──────────────┬──────────────┬────────┤
+│ Item                     │ Baseline     │ Revised      │ Δ      │
+├──────────────────────────┼──────────────┼──────────────┼────────┤
+│ [changed line item]      │ RM XXX       │ RM XXX       │ ±XXX   │
+│ Adjusted income          │ RM XXX       │ RM XXX       │ ±XXX   │
+│ Statutory income         │ RM XXX       │ RM XXX       │ ±XXX   │
+│ Chargeable income        │ RM XXX       │ RM XXX       │ ±XXX   │
+│ Tax payable              │ RM XXX       │ RM XXX       │ ±XXX   │
+├──────────────────────────┼──────────────┼──────────────┼────────┤
+│ TAX IMPACT               │              │              │ ±RM XXX│
+└──────────────────────────┴──────────────┴──────────────┴────────┘
+```
+
+Only show rows that actually change. If removing an add-back of RM10,000 flows straight through without hitting any caps or thresholds, the delta table needs only 5 rows (the item, adjusted income, statutory income, chargeable income, tax payable). If it crosses a rate band boundary, note that.
+
+### Cascading rules
+
+Changes cascade through the computation in this order:
+
+```
+Line item change
+  → Adjusted income (add-backs total / deductions total)
+    → CA absorption (if adjusted income changes, CA may now be fully absorbed or create excess)
+      → Statutory income (minimum NIL — check floor)
+        → Aggregate income (cap checks: donations 10%, zakat 2.5%)
+          → Loss utilisation (does new position change what losses can absorb?)
+            → Chargeable income
+              → Rate band application (did CI cross RM150k, RM600k, or RM2m threshold?)
+                → Tax payable
+                  → CP204 underestimation (does the new tax change the penalty position?)
+```
+
+If a cap or threshold is crossed, flag it explicitly:
+
+```
+⚠ Rate band crossed: CI moved from RM580k to RM620k
+  → RM20k now taxed at 24% instead of 17%
+  → Additional tax on band crossing: RM1,400
+```
+
+### Multi-scenario comparison
+
+If the user asks to compare multiple scenarios ("what about A vs B vs C?"):
+
+```
+┌─────────────────────┬──────────────┬──────────────┬──────────────┬──────────────┐
+│                     │ Baseline     │ Scenario A   │ Scenario B   │ Scenario C   │
+├─────────────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+│ [key variable]      │ RM XXX       │ RM XXX       │ RM XXX       │ RM XXX       │
+│ Chargeable income   │ RM XXX       │ RM XXX       │ RM XXX       │ RM XXX       │
+│ Tax payable         │ RM XXX       │ RM XXX       │ RM XXX       │ RM XXX       │
+├─────────────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+│ Tax saving vs base  │ —            │ RM XXX       │ RM XXX       │ RM XXX       │
+│ Risk level          │ —            │ [level]      │ [level]      │ [level]      │
+└─────────────────────┴──────────────┴──────────────┴──────────────┴──────────────┘
+
+Recommended: Scenario [X] — [one-line reason]
+```
+
+### Adopting a scenario
+
+When the user says "use that", "go with scenario B", "update the computation":
+- The selected scenario becomes the new baseline
+- State: `Baseline updated. Tax payable: RM XXX (was RM XXX, saved RM XXX).`
+- Future what-ifs now run against the new baseline
+- Audit health score re-evaluated against new position
+
+### What-if constraints
+
+- **Every delta must be arithmetically verified.** Do not present a delta without tracing through the cascade.
+- **If a what-if breaks a gate** (e.g., "what if we ignore SME status?" → changes rate determination), state that clearly and show the full rate impact, not just the line item.
+- **If a what-if is illegal** (e.g., "what if we don't add back depreciation?"), state: "That would fail the computation. Depreciation is always disallowed [s.39(1)(c)]. However, you could [legitimate alternative]."
+- **If a what-if requires information not in the baseline** (e.g., "what if we claim automation CA?" but no asset details provided), ask for the specific data needed rather than estimating.
+- **Never present a what-if that contradicts the source documents.** If the user says "what if revenue was RM2m instead of RM1.5m?" — that's a projection/planning exercise, not a computation. Flag it: "This changes source data. For planning purposes, here's the impact. For filing, computation must reflect actual figures."
+
+### Example interactions
+
+```
+User: "what if we don't add back the RM50k entertainment?"
+→ "Entertainment [s.39(1)(l)] is partially disallowable. If this RM50k qualifies
+   under a full proviso (staff-only event, sales with proof), it could be 100%
+   deductible. Let me show the impact of full deduction vs the current 50% treatment:"
+→ [Delta table showing RM25k difference flowing to tax saving of RM6,000 at 24%]
+
+User: "what if we buy the RM300k machine this year instead of next?"
+→ "With Budget 2026 ACA (QCE before 31 Dec 2026), that's 20% IA + 40% AA = RM180k
+   CA in year 1 vs RM48k under standard rates. Delta:"
+→ [Delta table showing RM132k additional CA, impact on statutory income and tax]
+
+User: "what if we defer the bonus to next year?"
+→ [Delta table: RM XX bonus removed from current year deductions, tax increases by RM XX]
+→ "Note: deferring creates RM XX additional tax THIS year but saves in NEXT year
+   if next year's income is lower. Net position depends on next year's projection."
+```
