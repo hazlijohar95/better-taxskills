@@ -212,6 +212,47 @@ The skill refuses to produce these patterns:
 
 ## Installation
 
+### MCP Server (recommended — works with any MCP client)
+
+```bash
+cd server && npm install && npm run build
+
+# Then add to your MCP client config:
+```
+
+**Claude Code** (`~/.claude.json`):
+```json
+{
+  "mcpServers": {
+    "malaysian-tax": {
+      "command": "node",
+      "args": ["/path/to/tax-agent/server/dist/index.js"]
+    }
+  }
+}
+```
+
+**Cursor** (MCP settings):
+```json
+{
+  "malaysian-tax": {
+    "command": "node",
+    "args": ["/path/to/tax-agent/server/dist/index.js"]
+  }
+}
+```
+
+**Any MCP-compatible client**: Point to the server binary via stdio transport.
+
+The MCP server exposes:
+- **19 tools** for tax computation, audit, strategy, RPGT, stamp duty, and more
+- **30 resources** providing read-only access to all domain references and structured data
+- **5 prompts** for common workflows (computation, audit, year-end planning, takeover, dispute)
+
+---
+
+### Skill Files (alternative — copy-paste installation)
+
 ### Claude Code
 
 ```bash
