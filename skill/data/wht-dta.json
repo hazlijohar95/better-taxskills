@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "last_updated": "2026-05-07",
+    "note": "DTA reduced rates for major treaty partners. Apply LOWER of domestic rate or treaty rate.",
+    "total_dtas": "76+"
+  },
+  "domestic_rates": {
+    "interest": 0.15,
+    "royalties": 0.10,
+    "technical_fees": 0.10,
+    "contract_payments": 0.13
+  },
+  "treaty_rates": {
+    "singapore": { "interest": 0.10, "royalties": 0.08, "technical_fees": 0.05 },
+    "united_kingdom": { "interest": 0.10, "royalties": 0.08, "technical_fees": 0.00 },
+    "australia": { "interest": 0.15, "royalties": 0.10, "technical_fees": 0.10 },
+    "japan": { "interest": 0.10, "royalties": 0.10, "technical_fees": 0.00 },
+    "china": { "interest": 0.10, "royalties": 0.10, "technical_fees": 0.10 },
+    "india": { "interest": 0.10, "royalties": 0.10, "technical_fees": 0.10 },
+    "thailand": { "interest": 0.15, "royalties": 0.10, "technical_fees": null },
+    "indonesia": { "interest": 0.10, "royalties": 0.10, "technical_fees": 0.10 },
+    "netherlands": { "interest": 0.10, "royalties": 0.08, "technical_fees": 0.08 },
+    "uae": { "interest": 0.00, "royalties": 0.08, "technical_fees": 0.10 },
+    "hong_kong": { "interest": 0.10, "royalties": 0.08, "technical_fees": 0.05 },
+    "south_korea": { "interest": 0.15, "royalties": 0.10, "technical_fees": 0.10 },
+    "germany": { "interest": 0.10, "royalties": 0.07, "technical_fees": 0.07 },
+    "france": { "interest": 0.15, "royalties": 0.10, "technical_fees": 0.10 },
+    "canada": { "interest": 0.15, "royalties": 0.10, "technical_fees": 0.10 },
+    "new_zealand": { "interest": 0.15, "royalties": 0.10, "technical_fees": 0.10 },
+    "pakistan": { "interest": 0.15, "royalties": 0.10, "technical_fees": 0.10 },
+    "philippines": { "interest": 0.15, "royalties": 0.10, "technical_fees": 0.10 },
+    "vietnam": { "interest": 0.10, "royalties": 0.10, "technical_fees": 0.10 },
+    "bangladesh": { "interest": 0.15, "royalties": 0.10, "technical_fees": 0.10 },
+    "turkey": { "interest": 0.10, "royalties": 0.10, "technical_fees": 0.10 },
+    "qatar": { "interest": 0.05, "royalties": 0.08, "technical_fees": 0.08 },
+    "bahrain": { "interest": 0.05, "royalties": 0.08, "technical_fees": 0.10 },
+    "kuwait": { "interest": 0.10, "royalties": 0.10, "technical_fees": 0.10 },
+    "saudi_arabia": { "interest": 0.05, "royalties": 0.08, "technical_fees": 0.08 }
+  },
+  "application_rules": {
+    "requirement": "Certificate of Residence (COR) from treaty country must be obtained BEFORE payment",
+    "no_cor": "Apply domestic rate — cannot claim treaty rate without COR",
+    "beneficial_ownership": "Required — conduit arrangements denied treaty benefit",
+    "mli_impact": "PPT (Principal Purpose Test) applies to all covered DTAs from 1 Jan 2021"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "year_of_assessment": "2025/2026",
+    "last_updated": "2026-05-07",
+    "authority": "Schedule 3, ITA 1967; P.U.(A) 52/2000; Budget 2026"
+  },
+  "standard_rates": {
+    "heavy_machinery_motor_vehicles": { "ia": 0.20, "aa": 0.20, "write_off_years": 4 },
+    "general_plant_machinery": { "ia": 0.20, "aa": 0.14, "write_off_years": 6.6 },
+    "office_equipment_furniture": { "ia": 0.20, "aa": 0.10, "write_off_years": 8.9 },
+    "ict_equipment_standard": { "ia": 0.40, "aa": 0.20, "write_off_years": 3 },
+    "industrial_buildings": { "ia": 0.10, "aa": 0.03, "write_off_years": 33 },
+    "small_value_assets": { "ia": null, "aa": 1.00, "write_off_years": 0, "threshold": 2000 }
+  },
+  "budget_2026_aca": {
+    "effective_from": "2025-10-11",
+    "effective_to": "2026-12-31",
+    "local_machinery": { "ia": 0.20, "aa": 0.40, "condition": "acquired from local manufacturers" },
+    "ict_equipment_software": { "ia": 0.20, "aa": 0.40 },
+    "software_development": { "ia": 0.20, "aa": 0.40, "includes": "consultation, licensing, incidental fees" },
+    "e_invoice_ict": { "type": "ACA", "condition": "gazetted April 2026" }
+  },
+  "automation_ca": {
+    "rate_multiplier": 2.0,
+    "cap": 10000000,
+    "effective_from": "YA 2023",
+    "effective_to": "YA 2027",
+    "conditions": ["manufacturing or services sector", "operating >= 36 months", "IR 4.0 element required"]
+  },
+  "motor_vehicle_qe_cap": {
+    "general": 50000,
+    "new_vehicle_up_to_150k": 100000,
+    "commercial_transport": null
+  },
+  "small_value_assets": {
+    "threshold_per_asset": 2000,
+    "annual_cap_non_sme": 20000,
+    "annual_cap_sme": null,
+    "excludes": ["hire purchase assets"]
+  },
+  "industrial_buildings": {
+    "factory": { "ia": 0.10, "aa": 0.03 },
+    "hotel_mot_registered": { "ia": 0.10, "aa": 0.03 },
+    "private_hospital": { "ia": 0.10, "aa": 0.03 },
+    "rd_building": { "ia": 0.10, "aa": 0.03 },
+    "bionexus": { "ia": null, "aa": 0.10 }
+  },
+  "special_schemes": {
+    "waste_recycling": { "ia": 0.20, "aa": 0.40 },
+    "energy_conservation": { "ia": 0.40, "aa": 0.60 },
+    "security_control": { "ia": 0.20, "aa": 0.80 },
+    "public_transport_buses": { "ia": 0.20, "aa": 0.80 },
+    "sme_plant_machinery": { "ia": 0.20, "aa": 0.80 },
+    "agriculture_machinery": { "ia": 0.20, "aa": 0.40 }
+  }
+}

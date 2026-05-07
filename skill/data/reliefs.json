@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "year_of_assessment": "2025/2026",
+    "last_updated": "2026-05-07",
+    "authority": "ITA 1967, Sections 45-49; Budget 2026",
+    "note": "Confirmed unchanged for YA 2026"
+  },
+  "personal_reliefs": [
+    { "id": 1, "description": "Self and dependants", "amount": 9000 },
+    { "id": 2, "description": "Disabled individual (additional)", "amount": 7000, "note": "Increased from RM6,000 in YA 2025" },
+    { "id": 3, "description": "Spouse / alimony to former wife", "amount": 4000 },
+    { "id": 4, "description": "Disabled spouse (additional)", "amount": 6000 },
+    { "id": 5, "description": "Child (under 18)", "amount": 2000, "per": "child" },
+    { "id": 6, "description": "Child (18+ full-time education, pre-degree)", "amount": 2000, "per": "child" },
+    { "id": 7, "description": "Child (18+ higher education, diploma+)", "amount": 8000, "per": "child" },
+    { "id": 8, "description": "Disabled child", "amount": 8000, "per": "child", "note": "Increased from RM6,000 in YA 2025" },
+    { "id": 9, "description": "Disabled child (18+ higher education, additional)", "amount": 8000, "per": "child", "note": "Total RM16,000 for disabled child in HE" },
+    { "id": 10, "description": "Medical expenses for parents/grandparents", "amount": 8000, "sub_limits": { "medical_exam": 1000 } },
+    { "id": 11, "description": "Disability-supporting equipment (self/spouse/child/parent)", "amount": 6000 },
+    { "id": 12, "description": "Medical — serious disease, fertility, vaccination, dental", "amount": 10000, "sub_limits": { "vaccination": 1000, "dental": 1000, "learning_disability_child_under_18": 6000 } },
+    { "id": 13, "description": "Education fees (self)", "amount": 7000, "sub_limits": { "upskilling": 2000 }, "note": "Law, accounting, Islamic finance, technical, vocational, scientific; Masters/PhD any field" },
+    { "id": 14, "description": "Lifestyle (books, computer, smartphone, internet, upskilling)", "amount": 2500 },
+    { "id": 15, "description": "Lifestyle — sports equipment, gym, facility rental", "amount": 1000 },
+    { "id": 16, "description": "Breastfeeding equipment", "amount": 1000, "conditions": "Women only, once per 2 YA, child under 2" },
+    { "id": 17, "description": "Childcare / kindergarten fees", "amount": 3000, "note": "Child ≤6; expanded YA 2026: daily care centres, after-school transit for child ≤12" },
+    { "id": 18, "description": "SSPN (education savings)", "amount": 8000, "note": "Net savings" },
+    { "id": 19, "description": "Life insurance + EPF", "amount": 7000, "sub_limits": { "mandatory_epf": 4000, "life_insurance_voluntary_epf": 3000 } },
+    { "id": 20, "description": "Private retirement scheme / deferred annuity", "amount": 3000, "note": "Until YA 2030" },
+    { "id": 21, "description": "Education and medical insurance", "amount": 4000 },
+    { "id": 22, "description": "SOCSO/EIS contributions", "amount": 350 },
+    { "id": 23, "description": "EV charging + food composting + CCTV", "amount": 2500, "conditions": "Once per 2 YA; YA 2023-2027" },
+    { "id": 24, "description": "Housing loan interest (first home)", "amount_tier_1": 7000, "amount_tier_2": 5000, "tier_1_condition": "Home ≤RM500k", "tier_2_condition": "Home RM500k-750k", "note": "SPA Jan 2025 - Dec 2027" }
+  ],
+  "rebates": [
+    { "description": "Chargeable income ≤ RM35,000", "amount_single": 400, "amount_joint": 800 },
+    { "description": "Zakat/fitrah (Muslim)", "amount": "actual paid", "cap": "tax charged" },
+    { "description": "Departure levy (umrah/holy places)", "amount": "actual", "conditions": "twice in lifetime" }
+  ]
+}

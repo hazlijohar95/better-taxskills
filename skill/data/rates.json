@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "year_of_assessment": "2025/2026",
+    "last_updated": "2026-05-07",
+    "authority": "Income Tax Act 1967, Finance Act 2024/2025, Budget 2026"
+  },
+  "corporate": {
+    "standard_rate": 0.24,
+    "sme_rates": [
+      { "band_from": 0, "band_to": 150000, "rate": 0.15 },
+      { "band_from": 150001, "band_to": 600000, "rate": 0.17 },
+      { "band_from": 600001, "band_to": null, "rate": 0.24 }
+    ],
+    "sme_conditions": {
+      "paid_up_capital_max": 2500000,
+      "gross_income_max": 50000000,
+      "no_corporate_shareholder_above": 2500000,
+      "foreign_ownership_max_pct": 20
+    },
+    "non_resident_rate": 0.24
+  },
+  "individual": {
+    "resident_rates": [
+      { "band_from": 0, "band_to": 5000, "rate": 0.00 },
+      { "band_from": 5001, "band_to": 20000, "rate": 0.01 },
+      { "band_from": 20001, "band_to": 35000, "rate": 0.03 },
+      { "band_from": 35001, "band_to": 50000, "rate": 0.06 },
+      { "band_from": 50001, "band_to": 70000, "rate": 0.11 },
+      { "band_from": 70001, "band_to": 100000, "rate": 0.19 },
+      { "band_from": 100001, "band_to": 400000, "rate": 0.25 },
+      { "band_from": 400001, "band_to": 600000, "rate": 0.26 },
+      { "band_from": 600001, "band_to": 2000000, "rate": 0.28 },
+      { "band_from": 2000001, "band_to": null, "rate": 0.30 }
+    ],
+    "non_resident_rate": 0.30,
+    "rebate_threshold": 35000,
+    "rebate_amount_single": 400,
+    "rebate_amount_joint": 800
+  },
+  "cooperative": {
+    "rates": [
+      { "band_from": 0, "band_to": 30000, "rate": 0.00 },
+      { "band_from": 30001, "band_to": 60000, "rate": 0.05 },
+      { "band_from": 60001, "band_to": 100000, "rate": 0.10 },
+      { "band_from": 100001, "band_to": 150000, "rate": 0.15 },
+      { "band_from": 150001, "band_to": 250000, "rate": 0.18 },
+      { "band_from": 250001, "band_to": 500000, "rate": 0.21 },
+      { "band_from": 500001, "band_to": 750000, "rate": 0.23 },
+      { "band_from": 750001, "band_to": null, "rate": 0.24 }
+    ]
+  },
+  "dividend_tax": {
+    "rate": 0.02,
+    "threshold": 100000,
+    "applies_from": "YA 2025",
+    "applies_to": "individual shareholders"
+  },
+  "plt_distribution_tax": {
+    "rate": 0.02,
+    "threshold": 100000,
+    "applies_from": "YA 2026",
+    "applies_to": "individual partners"
+  },
+  "withholding_tax": {
+    "interest": { "rate": 0.15, "section": "109" },
+    "royalties": { "rate": 0.10, "section": "109" },
+    "technical_management_fees": { "rate": 0.10, "section": "109B" },
+    "rental_movables": { "rate": 0.10, "section": "109B" },
+    "contract_payments": { "rate": 0.13, "section": "107A", "breakdown": "10% + 3%" },
+    "public_entertainer": { "rate": 0.15, "section": "109A" },
+    "commission_guarantee": { "rate": 0.10, "section": "109B" }
+  },
+  "penalties": {
+    "late_filing": { "min_pct": 0.20, "max_pct": 0.35 },
+    "incorrect_return": { "max_pct": 1.00 },
+    "late_payment": { "initial_pct": 0.10, "further_pct": 0.05, "further_after_days": 60 },
+    "cp204_underestimation": { "threshold_pct": 0.30, "penalty_pct": 0.10 },
+    "wilful_evasion": { "special_penalty_pct": 3.00 },
+    "wht_late_remittance": { "penalty_pct": 0.10 }
+  }
+}

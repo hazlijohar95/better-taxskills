@@ -1,0 +1,53 @@
+{
+  "commands": {
+    "compute": {
+      "category": "Build",
+      "description": "Full tax computation for any Malaysian entity type",
+      "argument_hint": "[entity type or provide financial data]",
+      "references": ["corporate.md", "partnership.md", "sole-prop.md", "ngo.md", "capital-allowances.md", "deductions.md"],
+      "chains_to": ["audit", "transfer-pricing", "cp204"]
+    },
+    "audit": {
+      "category": "Evaluate",
+      "description": "Review existing computation for errors, overpayments, and red flags",
+      "argument_hint": "[computation to review]",
+      "references": ["audit.md"],
+      "chains_to": []
+    },
+    "transfer-pricing": {
+      "category": "Evaluate",
+      "description": "Transfer pricing analysis — arm's length test, earnings stripping, documentation",
+      "argument_hint": "[related-party transactions]",
+      "references": ["transfer-pricing.md"],
+      "chains_to": ["international"]
+    },
+    "international": {
+      "category": "Evaluate",
+      "description": "Cross-border tax — WHT, FTC, FSI, Labuan, PE determination",
+      "argument_hint": "[cross-border transaction or structure]",
+      "references": ["international.md", "withholding-tax.md"],
+      "chains_to": ["transfer-pricing", "group"]
+    },
+    "group": {
+      "category": "Evaluate",
+      "description": "Group structure review — IHC, group relief, controlled transfers, continuity",
+      "argument_hint": "[group structure or transaction]",
+      "references": ["group.md"],
+      "chains_to": ["transfer-pricing", "international"]
+    },
+    "incentive": {
+      "category": "Advise",
+      "description": "Check available tax incentives and eligibility",
+      "argument_hint": "[entity details or activity]",
+      "references": ["incentives.md"],
+      "chains_to": ["compute"]
+    },
+    "cp204": {
+      "category": "Check",
+      "description": "CP204 underestimation penalty computation",
+      "argument_hint": "[actual tax, estimated tax]",
+      "references": ["corporate.md"],
+      "chains_to": []
+    }
+  }
+}
