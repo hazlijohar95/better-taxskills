@@ -1,7 +1,7 @@
 ---
 name: malaysian-tax
 description: "Use when the user wants to compute, audit, review, or plan Malaysian tax for any entity type: Sdn Bhd, PLT, Partnership, Sole Proprietor, NGO, or Cooperative. Covers tax computation, transfer pricing, international taxation, group structures, incentives, and compliance review. Not for non-Malaysian jurisdictions or non-tax advisory work."
-argument-hint: "[compute · audit · strategy · transfer-pricing · international · group · incentive · cp204 · shape] [target]"
+argument-hint: "[compute · audit · strategy · compare · rpgt · individual · checklist · calendar · year-end · takeover · dispute · stamp-duty · transfer-pricing · international · group · incentive · cp204 · shape] [target]"
 user-invocable: true
 allowed-tools:
   - Read(*)
@@ -87,6 +87,15 @@ DECISION TREE:
 | `group [structure]` | Evaluate | IHC, group relief, controlled transfers, continuity | [reference/group.md](reference/group.md) |
 | `incentive [entity]` | Advise | Available incentives and eligibility | [reference/incentives.md](reference/incentives.md) |
 | `strategy [entity]` | Advise | Tax optimisation by company stage — quantified, bounded by anti-avoidance | [reference/tax-strategy.md](reference/tax-strategy.md) |
+| `compare [prior vs current]` | Evaluate | Year-on-year variance analysis with LHDN risk flags | [reference/compare.md](reference/compare.md) |
+| `rpgt [disposal]` | Build | Real property gains tax computation | [reference/rpgt.md](reference/rpgt.md) |
+| `individual [person]` | Build | Individual tax computation (BIK, residence, reliefs, PCB) | [reference/individual.md](reference/individual.md) |
+| `checklist [computation]` | Check | Documentation requirements per claim — filing-ready | [reference/checklist.md](reference/checklist.md) |
+| `calendar [entity]` | Check | Compliance deadlines relative to today | [reference/calendar.md](reference/calendar.md) |
+| `year-end [entity]` | Advise | Pre-FYE tactical planning (1-3 months before close) | [reference/year-end.md](reference/year-end.md) |
+| `takeover [entity]` | Evaluate | New client onboarding — verify prior agent's work | [reference/takeover.md](reference/takeover.md) |
+| `dispute [assessment]` | Advise | LHDN query/audit/appeal — fight vs settle analysis | [reference/dispute.md](reference/dispute.md) |
+| `stamp-duty [instrument]` | Build | Stamp duty computation on transfers, loans, leases | [reference/stamp-duty.md](reference/stamp-duty.md) |
 | `cp204 [actual vs estimate]` | Check | Underestimation penalty computation | [reference/corporate.md](reference/corporate.md) |
 | `shape [scenario]` | Plan | Discovery interview for complex scenarios | (this file) |
 
@@ -97,7 +106,15 @@ DECISION TREE:
 3. **First word doesn't match but financial data is present**: route to `compute`, classify entity first.
 4. **Ambiguous**: ask one clarifying question. Do not guess between `compute` and `audit`.
 
-Commands chain naturally: `compute` auto-runs `audit` at the end. `compute` with related parties triggers `transfer-pricing` check. `compute` with non-resident payments triggers `international` WHT check. `strategy` chains to `compute` when the user wants to implement a recommended strategy.
+Commands chain naturally:
+- `compute` auto-runs `audit` at the end, then `checklist` for documentation requirements, then `calendar` for deadline alerts.
+- `compute` with related parties triggers `transfer-pricing` check.
+- `compute` with non-resident payments triggers `international` WHT check.
+- `strategy` chains to `compute` when the user wants to implement a recommended strategy.
+- `year-end` requires a projected position — chains from management accounts data.
+- `takeover` produces corrected carry-forward figures that feed into the next `compute`.
+- `compare` requires both prior and current year data.
+- `rpgt` and `stamp-duty` are standalone — separate legislation from ITA.
 
 ---
 

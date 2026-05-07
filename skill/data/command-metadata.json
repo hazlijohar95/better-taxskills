@@ -5,13 +5,83 @@
       "description": "Full tax computation for any Malaysian entity type",
       "argument_hint": "[entity type or provide financial data]",
       "references": ["corporate.md", "partnership.md", "sole-prop.md", "ngo.md", "capital-allowances.md", "deductions.md"],
-      "chains_to": ["audit", "transfer-pricing", "cp204"]
+      "chains_to": ["audit", "checklist", "calendar", "transfer-pricing", "cp204"]
     },
     "audit": {
       "category": "Evaluate",
       "description": "Review existing computation for errors, overpayments, and red flags",
       "argument_hint": "[computation to review]",
       "references": ["audit.md"],
+      "chains_to": []
+    },
+    "strategy": {
+      "category": "Advise",
+      "description": "Tax optimisation by company stage — loss, breakeven, profitable, super-profitable",
+      "argument_hint": "[entity details or financial position]",
+      "references": ["tax-strategy.md", "incentives.md", "capital-allowances.md"],
+      "chains_to": ["compute", "incentive", "transfer-pricing", "group"]
+    },
+    "compare": {
+      "category": "Evaluate",
+      "description": "Year-on-year variance analysis with LHDN risk flags and continuity checks",
+      "argument_hint": "[prior year and current year computations]",
+      "references": ["compare.md"],
+      "chains_to": ["audit", "transfer-pricing"]
+    },
+    "rpgt": {
+      "category": "Build",
+      "description": "Real property gains tax computation — all entity types and holding periods",
+      "argument_hint": "[property disposal details]",
+      "references": ["rpgt.md"],
+      "chains_to": ["stamp-duty"]
+    },
+    "individual": {
+      "category": "Build",
+      "description": "Individual tax computation — employment income, BIK, residence, reliefs, PCB",
+      "argument_hint": "[individual details or Form EA]",
+      "references": ["individual.md", "sole-prop.md"],
+      "chains_to": ["audit", "checklist"]
+    },
+    "checklist": {
+      "category": "Check",
+      "description": "Documentation requirements per claim — filing-ready evidence checklist",
+      "argument_hint": "[computation to generate checklist for]",
+      "references": ["checklist.md"],
+      "chains_to": []
+    },
+    "calendar": {
+      "category": "Check",
+      "description": "Compliance deadlines relative to today — filing, payment, revision windows",
+      "argument_hint": "[entity FYE or details]",
+      "references": ["calendar.md"],
+      "chains_to": []
+    },
+    "year-end": {
+      "category": "Advise",
+      "description": "Pre-FYE tactical planning — actions executable within 1-3 months of year close",
+      "argument_hint": "[entity with management accounts or projected position]",
+      "references": ["year-end.md", "tax-strategy.md", "capital-allowances.md"],
+      "chains_to": ["compute", "strategy"]
+    },
+    "takeover": {
+      "category": "Evaluate",
+      "description": "New client onboarding — verify prior agent's work, correct carry-forwards",
+      "argument_hint": "[prior computations and records]",
+      "references": ["takeover.md", "audit.md"],
+      "chains_to": ["compute", "dispute"]
+    },
+    "dispute": {
+      "category": "Advise",
+      "description": "LHDN query, audit, or appeal — position assessment, fight vs settle decision",
+      "argument_hint": "[LHDN correspondence or assessment details]",
+      "references": ["dispute.md"],
+      "chains_to": []
+    },
+    "stamp-duty": {
+      "category": "Build",
+      "description": "Stamp duty computation — property transfers, shares, loans, leases, group relief",
+      "argument_hint": "[instrument type and transaction details]",
+      "references": ["stamp-duty.md"],
       "chains_to": []
     },
     "transfer-pricing": {
@@ -41,13 +111,6 @@
       "argument_hint": "[entity details or activity]",
       "references": ["incentives.md"],
       "chains_to": ["compute"]
-    },
-    "strategy": {
-      "category": "Advise",
-      "description": "Tax optimisation by company stage — loss, breakeven, profitable, super-profitable",
-      "argument_hint": "[entity details or financial position]",
-      "references": ["tax-strategy.md", "incentives.md", "capital-allowances.md"],
-      "chains_to": ["compute", "incentive", "transfer-pricing", "group"]
     },
     "cp204": {
       "category": "Check",

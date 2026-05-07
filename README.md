@@ -1,6 +1,6 @@
 # Malaysian Tax
 
-The precision your practice demands. 1 skill, 9 commands, and 20 traps that catch practitioners before LHDN does.
+The precision your practice demands. 1 skill, 18 commands, and 20 traps that catch practitioners before LHDN does.
 
 > **Quick start:** Copy `dist/claude-code/.claude/` into your project, or install for any supported AI tool below.
 
@@ -20,7 +20,7 @@ This skill fixes that. It encodes the Income Tax Act 1967, Budget 2026, 76 DTAs,
 
 ### The Skill: malaysian-tax
 
-A complete tax computation system with 15 domain references and structured data:
+A complete tax computation system with 23 domain references and structured data:
 
 ```
 skill/
@@ -40,6 +40,15 @@ skill/
 │   ├── compliance.md                    Edge cases/audit/penalties
 │   ├── audit.md                         Error detection + health scoring
 │   ├── tax-strategy.md                  Optimisation by stage (loss→super-profit)
+│   ├── rpgt.md                          Real Property Gains Tax (RPGTA 1976)
+│   ├── individual.md                    Individual tax: BIK, residence, reliefs, PCB
+│   ├── compare.md                       Year-on-year variance with LHDN risk flags
+│   ├── dispute.md                       LHDN queries, audits, appeals, settlements
+│   ├── checklist.md                     Documentation evidence per deduction claimed
+│   ├── calendar.md                      Compliance deadlines relative to today
+│   ├── stamp-duty.md                    Stamp Act 1949: transfers, loans, leases
+│   ├── year-end.md                      Pre-FYE tactical planning (1-3 months)
+│   ├── takeover.md                      New client onboarding from prior agent
 │   └── workflow.md                      Practitioner 9-phase workflow
 └── data/                             ← Structured (machine-readable)
     ├── rates.json                       Corporate, individual, cooperative rates
@@ -49,7 +58,7 @@ skill/
     └── command-metadata.json            Sub-command definitions
 ```
 
-### 9 Commands
+### 18 Commands
 
 All accessed through `/malaysian-tax`:
 
@@ -62,6 +71,15 @@ All accessed through `/malaysian-tax`:
 | `/malaysian-tax group` | Group structure: IHC, relief, controlled transfers, continuity |
 | `/malaysian-tax incentive` | Available incentives, eligibility, tax savings quantified |
 | `/malaysian-tax strategy` | Tax optimisation by company stage — quantified savings, anti-avoidance bounded |
+| `/malaysian-tax compare` | Year-on-year variance analysis with LHDN risk flags |
+| `/malaysian-tax rpgt` | Real property gains tax computation (RPGTA 1976) |
+| `/malaysian-tax individual` | Individual tax: employment income, BIK, residence, reliefs |
+| `/malaysian-tax checklist` | Documentation evidence required per deduction claimed |
+| `/malaysian-tax calendar` | Compliance deadlines and penalty windows relative to today |
+| `/malaysian-tax year-end` | Pre-FYE tactical actions (1-3 months before close) |
+| `/malaysian-tax takeover` | New client onboarding — verify prior agent, correct carry-forwards |
+| `/malaysian-tax dispute` | LHDN query/audit/appeal — fight vs settle analysis |
+| `/malaysian-tax stamp-duty` | Stamp duty on property, shares, loans, leases, group relief |
 | `/malaysian-tax cp204` | Underestimation penalty computation |
 | `/malaysian-tax shape` | Discovery interview for complex scenarios |
 
@@ -74,6 +92,15 @@ All accessed through `/malaysian-tax`:
 /malaysian-tax international              # WHT/FTC on cross-border payments
 /malaysian-tax group                      # Reviews group structure
 /malaysian-tax strategy                   # Optimisation strategies by profit stage
+/malaysian-tax compare                    # Year-on-year variance with risk flags
+/malaysian-tax rpgt                       # Real property gains tax
+/malaysian-tax individual                 # Individual tax computation
+/malaysian-tax checklist                  # Documentation requirements for filing
+/malaysian-tax calendar                   # Deadline alerts relative to today
+/malaysian-tax year-end                   # Pre-FYE tactical planning
+/malaysian-tax takeover                   # New client from prior agent
+/malaysian-tax dispute                    # LHDN audit/appeal handling
+/malaysian-tax stamp-duty                 # Stamp duty computation
 /malaysian-tax incentive                  # Checks what's available
 ```
 

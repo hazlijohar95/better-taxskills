@@ -133,7 +133,9 @@ function validate(source) {
   const requiredRefs = ['corporate.md', 'partnership.md', 'sole-prop.md', 'ngo.md',
                         'capital-allowances.md', 'deductions.md', 'audit.md',
                         'transfer-pricing.md', 'international.md', 'group.md',
-                        'tax-strategy.md'];
+                        'tax-strategy.md', 'rpgt.md', 'individual.md', 'compare.md',
+                        'dispute.md', 'checklist.md', 'calendar.md', 'stamp-duty.md',
+                        'year-end.md', 'takeover.md'];
   for (const ref of requiredRefs) {
     if (!source.references[ref]) {
       errors.push(`Missing reference: ${ref}`);
